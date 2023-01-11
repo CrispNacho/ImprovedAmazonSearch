@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollBar;
 import java.io.IOException;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 
 /**
  * JavaFX App
@@ -24,13 +25,24 @@ public class App extends Application {
         Button nextScreenBtn = new Button("Next Screen Button");
         nextScreenBtn.setText("Next");
 
+        Button summaryScreenButton = new Button("Summary Dashboard");
+        summaryScreenButton.setStyle("-fx-background-color: #9FE2BF ");
+        Button searchScreenButton = new Button("Search");
+        searchScreenButton.setStyle("-fx-background-color: #9FE2BF ");
+
         stage.setTitle("Amazon Improved Search");
         Menu mainMenuScreen = new Menu();
-        GridPane mainMenuScreen1 = mainMenuScreen.implementScreen();
+        VBox mainMenuScreen1 = mainMenuScreen.implementScreen();
+
+        //summaryScreenButton.setOnAction(e -> stage.setScene(scene2)); 
+        //searchScreenButton.setOnAction(e -> stage.setScene(scene3)); 
+
+        mainMenuScreen1.getChildren().addAll(searchScreenButton, summaryScreenButton);
         scene = new Scene(mainMenuScreen1, 640, 480);
-        mainMenuScreen1.addRow(0, nextScreenBtn);
         stage.setScene(scene);
         stage.show();
+        
+        
     }
     public static void main(String[] args) {
         launch();
