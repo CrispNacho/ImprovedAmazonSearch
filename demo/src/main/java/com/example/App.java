@@ -24,6 +24,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
+        WebScraper scraper = new WebScraper();
+        scraper.scraper();
+
         //Title of window
         stage.setTitle("Amazon Improved Search");
 
@@ -91,7 +94,7 @@ public class App extends Application {
         
         
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         launch();
     }
 
