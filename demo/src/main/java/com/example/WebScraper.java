@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 import com.example.Product;
+import java.lang.Math;
 
 public class WebScraper{
     public void scrape(String keyword, ArrayList<Product> productList) throws IOException {
@@ -49,18 +50,17 @@ public class WebScraper{
                 for (Element el: product.select(productQuery + discountQuery)) {
                   double originalPrice = Double.parseDouble(el.text().substring(1).replaceAll(",",""));
                   discount = (originalPrice - price) / originalPrice * 100;
+                  discount = Math.round(discount);
                 }
                 for (Element el: product.select(linkQuery)) {
                   link = el.attr("href");
                 }
-                
 
-                Product productEntry = new Product(name, rating, price, discount, link);
+                Product productEntry = new Product(name, price, rating, discount, link);
                 if (price != 0) {
                     productList.add(productEntry);
                 }
             }
         }
-        System.out.println("hi" + productList);
     }
 }

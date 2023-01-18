@@ -1,15 +1,19 @@
 package com.example;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import java.util.ArrayList;
 public class Product {
     public String name;
     private double cost;
     private double rating;
     private double discount;
+    private int width = 250;
+    private int height = 100;
+
     public String link;
-    public Label text = new Label();
-    public Label summaryText = new Label();
+    public TextArea text = new TextArea();
+    public TextArea summaryText = new TextArea();
     public Button button = new Button("add");
     public Button delButton = new Button("del");
     public boolean displayedOnSummary = false;
@@ -22,8 +26,14 @@ public class Product {
         this.rating = rating;
         this.link = link;
         this.discount = discount;
-        this.text.setText(name + " " + cost + " " + rating + " " + discount);
-        this.summaryText.setText(name + " " + cost + " " + rating + " " + discount);
+        this.text.setPrefHeight(height);
+        this.text.setPrefWidth(width);
+        this.text.setText(name + "\n$" + cost + " | " + rating + " out of 5.0 stars | " + discount + "% off");
+        this.text.setWrapText(true);
+        this.summaryText.setPrefHeight(height);
+        this.summaryText.setPrefWidth(width);
+        this.summaryText.setText(name + "\n$" + cost + " | " + rating + " out of 5.0 stars | " + discount + "% off");
+        this.summaryText.setWrapText(true);
     }
 
 }

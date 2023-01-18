@@ -9,11 +9,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.layout.VBox;
 
 
 public class ProductPage {
     public ArrayList<Product> products = new ArrayList<Product>();
     private ArrayList<Product> selectedProducts = new ArrayList<Product>();
+    private VBox vbox = new VBox();  
+    private GridPane titleGrid = new GridPane();
     public GridPane grid = new GridPane();
     private TextField textField = new TextField();
     private Text title = new Text();
@@ -21,12 +24,6 @@ public class ProductPage {
     public ScrollPane scrollPane = new ScrollPane();
 
     private void addProductsAndButton(){
-        /* 
-        for(int i = 0; i < 25; i ++){
-            Product banana = new Product("banana", i, 4.1, 0);
-            addProduct(banana);
-        }
-        */
         for(Product product: products){
             product.button.setOnAction(e -> {  
                 //if the product is not already in the array then add it
@@ -75,11 +72,12 @@ public class ProductPage {
     public ProductPage() throws IOException{
         title.setText("Product Page");
         searchButton.setStyle("-fx-background-color: #9FE2BF ");
-        grid.addRow(0, title, textField, searchButton);
+        titleGrid.addRow(0, title, textField, searchButton);
 
         scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setContent(grid);
+        vbox.getChildren().addAll(titleGrid, grid);
+        scrollPane.setContent(vbox);
 
         searchButton.setOnAction(e -> {
             String text = textField.getText();
