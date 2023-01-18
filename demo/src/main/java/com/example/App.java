@@ -23,13 +23,6 @@ public class App extends Application {
     
     @Override
     public void start(Stage stage) throws IOException {
-        
-        
-
-
-        WebScraper scraper = new WebScraper();
-        scraper.scraper();
-
         //Title of window
         stage.setTitle("Amazon Improved Search");
 

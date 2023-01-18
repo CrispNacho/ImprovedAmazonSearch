@@ -7,6 +7,7 @@ public class Product {
     private double cost;
     private double rating;
     private double discount;
+    public String link;
     public Label text = new Label();
     public Label summaryText = new Label();
     public Button button = new Button("add");
@@ -15,10 +16,11 @@ public class Product {
     public int coloumn;
     public int row;
 
-    public Product(String name, double cost, double rating, double discount) {
+    public Product(String name, double cost, double rating, double discount, String link) {
         this.name = name;
         this.cost = cost;
         this.rating = rating;
+        this.link = link;
         this.discount = discount;
         this.text.setText(name + " " + cost + " " + rating + " " + discount);
         this.summaryText.setText(name + " " + cost + " " + rating + " " + discount);

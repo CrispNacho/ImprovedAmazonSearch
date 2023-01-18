@@ -1,5 +1,7 @@
 package com.example;
 import javafx.scene.layout.GridPane;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import com.example.Product;
 import javafx.scene.text.Text;
@@ -17,20 +19,8 @@ public class ProductPage {
     private Text title = new Text();
     private Button searchButton= new Button("search");
     public ScrollPane scrollPane = new ScrollPane();
-    
-
-
-
-    private void addProduct(Product product){
-        products.add(product);
-
-    }
 
     private void addProductsAndButton(){
-        Product apple = new Product("bible then hang luigi", 2.00, 4.1, 0);
-        Product legocity = new Product("Lego City", 59.99, 4.4, 5);
-        addProduct(legocity);
-        addProduct(apple);
         /* 
         for(int i = 0; i < 25; i ++){
             Product banana = new Product("banana", i, 4.1, 0);
@@ -82,7 +72,7 @@ public class ProductPage {
     }
 
 
-    public ProductPage(){
+    public ProductPage() throws IOException{
         title.setText("Product Page");
         searchButton.setStyle("-fx-background-color: #9FE2BF ");
         grid.addRow(0, title, textField, searchButton);
@@ -93,12 +83,20 @@ public class ProductPage {
 
         searchButton.setOnAction(e -> {
             String text = textField.getText();
-            System.out.println(products);
            
             for(Product product: products){
                 products.remove(product);
                 removeProduct(product);
             }
+
+            WebScraper scraper = new WebScraper();
+
+            try {
+                scraper.scrape(text, products);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            System.out.println(products);
             addProductsAndButton();
             addProductsToScreen(products);
         }); 
