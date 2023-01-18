@@ -60,7 +60,7 @@ public class App extends Application {
 
 
         SummaryPage summaryScreen = new SummaryPage();
-        summaryScreen.grid.addRow(7, searchScreenButton1);
+        summaryScreen.grid.addRow(0, searchScreenButton1);
 
         
 
@@ -74,9 +74,9 @@ public class App extends Application {
 
         //Main Screen buttons
         summaryScreenButton.setOnAction(e -> {   
-            summaryScreen.addProductsToScreen(productScreen.getProducts());
             stage.setScene(summaryScreenScene);
         }); 
+
         searchScreenButton.setOnAction(e -> { 
             stage.setScene(productScreenScene);
 
@@ -84,7 +84,8 @@ public class App extends Application {
 
         //Product Screen Buttons
         summaryScreenButton1.setOnAction(e -> {   
-            //summaryScreen.addProductsToScreen(productScreen.getProducts());
+            System.out.println("changed screens");
+            summaryScreen.addProductsToScreen(productScreen.getSelectedProducts());
             stage.setScene(summaryScreenScene);
 
         }); 

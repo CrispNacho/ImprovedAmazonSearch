@@ -11,7 +11,7 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 
 public class ProductPage {
     public ArrayList<Product> products = new ArrayList<Product>();
-    public ArrayList<Product> selectedProducts = new ArrayList<Product>();
+    private ArrayList<Product> selectedProducts = new ArrayList<Product>();
     public GridPane grid = new GridPane();
     private TextField textField = new TextField();
     private Text title = new Text();
@@ -21,25 +21,22 @@ public class ProductPage {
 
 
 
-    public ArrayList<Product> getProducts(){
-        return products;
-    }
-
-    public void addProduct(Product product){
+    private void addProduct(Product product){
         products.add(product);
 
     }
 
-    private void addProducts(){
+    private void addProductsAndButton(){
         Product apple = new Product("bible then hang luigi", 2.00, 4.1, 0);
         Product legocity = new Product("Lego City", 59.99, 4.4, 5);
         addProduct(legocity);
-
+        addProduct(apple);
+        /* 
         for(int i = 0; i < 25; i ++){
             Product banana = new Product("banana", i, 4.1, 0);
             addProduct(banana);
         }
-
+        */
         for(Product product: products){
             product.button.setOnAction(e -> {  
                 //if the product is not already in the array then add it
@@ -53,19 +50,38 @@ public class ProductPage {
         } 
 
     }
-    public void addProductsToScreen(ArrayList<Product> products){
-        String string = "";
-        int count = 1;
-        for(int i = 0; i < products.size(); i++){
-            
+    private void removeProduct(Product product){
+        System.out.println("removing product with row " + product.row + " and coloumn" + product.coloumn);
+        grid.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == product.coloumn && GridPane.getRowIndex(node) == product.row);
+        grid.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == product.coloumn+1 && GridPane.getRowIndex(node) == product.row);
+    }
 
-           
-            grid.addRow(i, products.get(i).text, products.get(i).button, products.get(i + 1).text, products.get(i + 1).button);
+
+
+    private void addProductsToScreen(ArrayList<Product> products){
+        for(int i = 1; i < products.size(); i+=2){
+            
+            grid.addRow(i, products.get(i - 1).text, products.get(i - 1).button, products.get(i).text, products.get(i).button);
+            products.get(i - 1).coloumn = 0;
+            products.get(i - 1).row = i;
+            products.get(i).coloumn = 2;
+            products.get(i).row = i;
+
             
             
-            i++;
         }
     }
+
+    public ArrayList<Product> getSelectedProducts(){
+        return selectedProducts;
+    }
+
+    public void setSelectedProducts(ArrayList<Product> products){
+        this.selectedProducts = products;
+
+    }
+
+
     public ProductPage(){
         title.setText("Product Page");
         searchButton.setStyle("-fx-background-color: #9FE2BF ");
@@ -77,11 +93,18 @@ public class ProductPage {
 
         searchButton.setOnAction(e -> {
             String text = textField.getText();
-            addProducts();
+            System.out.println(products);
+           
+            for(Product product: products){
+                products.remove(product);
+                removeProduct(product);
+            }
+            addProductsAndButton();
             addProductsToScreen(products);
         }); 
         
     }
+    
 
 
     

@@ -12,7 +12,7 @@ import javafx.scene.control.TextArea;
 
 
 public class SummaryPage {
-    public ArrayList<Product> selectedProducts = new ArrayList<Product>();
+    public ArrayList<Product> selectedProductsAddedToPage = new ArrayList<Product>();
     public GridPane grid = new GridPane();
     public VBox layout1 = new VBox(20);
     public ScrollPane scrollPane = new ScrollPane();
@@ -24,27 +24,35 @@ public class SummaryPage {
         title.setStyle("-fx-font-size: 2em; ");
         scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        grid.addRow(0, title);
+        //layout1.getChildren().addAll(title);
 
-        layout1.getChildren().addAll(title);
-        scrollPane.setContent(layout1);
+        scrollPane.setContent(grid);
 
         
         
 
     }
+
+
     public void addProductsToScreen(ArrayList<Product> products){
-        String string = "";
-        for(Product product: products){
-            layout1.getChildren().addAll(product.text);
-            layout1.getChildren().addAll(product.button);
+        
+        System.out.println("adding products to screen");
+        for(int i = 0; i < products.size(); i++){
+
+            if(products.get(i).displayedOnSummary == false){
+
+            grid.addRow(i + 1, products.get(i).summaryText, products.get(i).delButton);
+            products.get(i).displayedOnSummary = true;
+            }
+
         }
+        
     }
-    public void addToSelectedProducts(Product product){
-        selectedProducts.add(product);
-    }
-    public String getSelectedProducts(){
-        return selectedProducts.get(0).name;
-    }
+    
+    
+    //add method which sets the delete button on action event
+
 
 
 
