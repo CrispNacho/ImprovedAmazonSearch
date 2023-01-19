@@ -37,5 +37,14 @@ public class Product {
         this.summaryText.setText(name + "\n$" + cost + " | " + rating + " out of 5.0 stars | " + discount + "% off");
         this.summaryText.setWrapText(true);
     }
+    public double getDiscount(){
+        return this.discount;
+    }
+    public double getRating(){
+        return this.rating;
+    }
+    public double getCost(){
+        return this.cost;
+    }
 
 }
