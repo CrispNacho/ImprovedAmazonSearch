@@ -26,7 +26,7 @@ public class Product {
         this.name = name;
         this.cost = cost;
         this.rating = rating;
-        this.link = link;
+        this.link = "www.amazon.ca" + link;
         this.discount = discount;
         this.text.setPrefHeight(height);
         this.text.setPrefWidth(width);
@@ -36,7 +36,7 @@ public class Product {
         this.summaryText.setPrefHeight(height);
         this.summaryText.setPrefWidth(width);
         this.summaryText.setEditable(false);
-        this.summaryText.setText(name + "\n$" + cost + " | " + rating + " out of 5.0 stars | " + discount + "% off" + link);
+        this.summaryText.setText("$" + cost + " | " + rating + " out of 5.0 stars | " + discount + "% off\n" + name + "\nlink:" + this.link);
         this.summaryText.setWrapText(true);
     }
     public double getDiscount(){

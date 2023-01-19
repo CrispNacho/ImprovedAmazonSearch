@@ -7,11 +7,6 @@ import org.jsoup.select.Elements;
 import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
-import java.util.Scanner; 
-import java.io.File;
-import java.io.FileWriter;
-
-import com.example.Product;
 import java.lang.Math;
 
 public class WebScraper{
@@ -22,7 +17,7 @@ public class WebScraper{
     private String priceQuery = "div.a-section.a-spacing-none.a-spacing-top-small.s-price-instructions-style > div.a-row.a-size-base.a-color-base > a > span:nth-child(1) > span.a-offscreen";
     private String discountQuery = "div.a-section.a-spacing-none.a-spacing-top-small.s-price-instructions-style > div > a > span.a-price.a-text-price > span.a-offscreen";
     private String linkQuery = "div > div > div > div > div.s-product-image-container.aok-relative.s-image-overlay-grey.s-text-center.s-padding-left-small.s-padding-right-small.puis-spacing-small.s-height-equalized > span > a";
-    
+
     public void scrape(String keyword, ArrayList<Product> productList) throws IOException {
         String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:53.0) Gecko/20100101 Firefox/53.0";
         String url = "https://www.amazon.ca/s?k=" + keyword;

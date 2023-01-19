@@ -50,8 +50,15 @@ public class ProductPage {
 
 
     private void addProductsToScreen(ArrayList<Product> products){
-        for(int i = 1; i < products.size(); i+=2){
-            grid.addRow(i, products.get(i - 1).text, products.get(i - 1).button, products.get(i).text, products.get(i).button);
+        grid.getChildren().clear();
+        int row = 0;
+        for(int i =0; i < products.size(); i++){
+            grid.addRow(row, products.get(i).text, products.get(i).button);
+            products.get(i).coloumn = i % 2;
+            products.get(i).row = row;
+            if(i % 2 == 1){
+                row+=1;
+            }
         }
     }
 
@@ -123,9 +130,9 @@ public class ProductPage {
             Double.parseDouble(text);
             return true;
         }
-    catch (NumberFormatException er){
-      return false;
-    }
+        catch (NumberFormatException er){
+            return false;
+        }
       }
 
     private void applyFilters(){
