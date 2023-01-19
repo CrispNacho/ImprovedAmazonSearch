@@ -16,14 +16,14 @@ public class ProductPage {
     public ArrayList<Product> products = new ArrayList<Product>();
     private ArrayList<Product> selectedProducts = new ArrayList<Product>();
     private VBox vbox = new VBox();  
-    private GridPane titleGrid = new GridPane();
+    public GridPane titleGrid = new GridPane();
     public GridPane grid = new GridPane();
     private TextField textField = new TextField();
     private Text title = new Text();
     private Button searchButton= new Button("search");
     public ScrollPane scrollPane = new ScrollPane();
 
-    private void addProductsAndButton(){
+    private void addProductButtons(){
         for(Product product: products){
             product.button.setOnAction(e -> {  
                 //if the product is not already in the array then add it
@@ -37,10 +37,8 @@ public class ProductPage {
         } 
 
     }
-    private void removeProduct(Product product){
-        System.out.println("removing product with row " + product.row + " and coloumn" + product.coloumn);
-        grid.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == product.coloumn && GridPane.getRowIndex(node) == product.row);
-        grid.getChildren().removeIf( node -> GridPane.getColumnIndex(node) == product.coloumn+1 && GridPane.getRowIndex(node) == product.row);
+    public void removeSelectedProduct(Product product){
+        selectedProducts.remove(product);
     }
 
 
@@ -49,12 +47,7 @@ public class ProductPage {
         for(int i = 1; i < products.size(); i+=2){
             
             grid.addRow(i, products.get(i - 1).text, products.get(i - 1).button, products.get(i).text, products.get(i).button);
-            products.get(i - 1).coloumn = 0;
-            products.get(i - 1).row = i;
-            products.get(i).coloumn = 2;
-            products.get(i).row = i;
-
-            
+     
             
         }
     }
@@ -81,11 +74,8 @@ public class ProductPage {
 
         searchButton.setOnAction(e -> {
             String text = textField.getText();
-           
-            for(Product product: products){
-                products.remove(product);
-                removeProduct(product);
-            }
+            grid.getChildren().clear();
+            products.clear();
 
             WebScraper scraper = new WebScraper();
 
@@ -95,7 +85,7 @@ public class ProductPage {
                 e1.printStackTrace();
             }
             System.out.println(products);
-            addProductsAndButton();
+            addProductButtons();
             addProductsToScreen(products);
         }); 
         

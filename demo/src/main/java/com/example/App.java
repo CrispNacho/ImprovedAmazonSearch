@@ -49,11 +49,11 @@ public class App extends Application {
         menuScreen.grid.getChildren().addAll(searchScreenButton, summaryScreenButton);
 
         ProductPage productScreen = new ProductPage();
-        productScreen.grid.addRow(0, summaryScreenButton1);
+        productScreen.titleGrid.addRow(0, summaryScreenButton1);
 
 
         SummaryPage summaryScreen = new SummaryPage();
-        summaryScreen.grid.addRow(0, searchScreenButton1);
+        summaryScreen.titleGrid.addRow(0, searchScreenButton1);
 
         
 
@@ -79,13 +79,14 @@ public class App extends Application {
         summaryScreenButton1.setOnAction(e -> {   
             System.out.println("changed screens");
             summaryScreen.addProductsToScreen(productScreen.getSelectedProducts());
+            summaryScreen.addProductButtons(productScreen.getSelectedProducts());
             stage.setScene(summaryScreenScene);
 
         }); 
         //Summary Screen Buttons
         searchScreenButton1.setOnAction(e -> {   
             stage.setScene(productScreenScene);
-        }); 
+        });
 
         //Sets the default page to be the menu
         stage.setScene(menuScreenScene);

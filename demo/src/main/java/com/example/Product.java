@@ -19,6 +19,8 @@ public class Product {
     public boolean displayedOnSummary = false;
     public int coloumn;
     public int row;
+    public int summaryColoumn;
+    public int summaryRow;
 
     public Product(String name, double cost, double rating, double discount, String link) {
         this.name = name;
