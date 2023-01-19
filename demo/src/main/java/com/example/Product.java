@@ -30,11 +30,13 @@ public class Product {
         this.discount = discount;
         this.text.setPrefHeight(height);
         this.text.setPrefWidth(width);
+        this.text.setEditable(false);
         this.text.setText(name + "\n$" + cost + " | " + rating + " out of 5.0 stars | " + discount + "% off");
         this.text.setWrapText(true);
         this.summaryText.setPrefHeight(height);
         this.summaryText.setPrefWidth(width);
-        this.summaryText.setText(name + "\n$" + cost + " | " + rating + " out of 5.0 stars | " + discount + "% off");
+        this.summaryText.setEditable(false);
+        this.summaryText.setText(name + "\n$" + cost + " | " + rating + " out of 5.0 stars | " + discount + "% off" + link);
         this.summaryText.setWrapText(true);
     }
     public double getDiscount(){

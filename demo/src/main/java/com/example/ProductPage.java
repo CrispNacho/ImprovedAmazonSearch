@@ -14,6 +14,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 
 
 public class ProductPage {
@@ -26,8 +27,10 @@ public class ProductPage {
     private Text title = new Text();
     private Button searchButton= new Button("search");
     public ScrollPane scrollPane = new ScrollPane();
-    private TextField minPriceInput = new TextField("min price");
-    private TextField maxPriceInput = new TextField("max price");
+    private TextField minPriceInput = new TextField();
+    private TextField maxPriceInput = new TextField();
+    private Label maxPriceLabel = new Label();
+    private Label minPriceLabel = new Label();
     private ComboBox dropdownFilter = new ComboBox();
     private Button applyFiltersButton = new Button("Apply");
    
@@ -67,9 +70,12 @@ public class ProductPage {
 
         title.setText("Product Page");
         searchButton.setStyle("-fx-background-color: #9FE2BF ");
+        minPriceLabel.setText("Minimum Price");
+        maxPriceLabel.setText("Maximum Price");
 
         maxPriceInput.setMaxWidth(110);
         minPriceInput.setMaxWidth(110);
+
         dropdownFilter.getItems().add("Price (Asc)");
         dropdownFilter.getItems().add("Rating (Asc)");
         dropdownFilter.getItems().add("Discount (Asc)");
@@ -79,7 +85,8 @@ public class ProductPage {
     
 
         titleGrid.addRow(0, title, textField, searchButton);
-        titleGrid.addRow(1, minPriceInput, maxPriceInput, dropdownFilter, applyFiltersButton);
+        titleGrid.addRow(1, minPriceLabel, maxPriceLabel);
+        titleGrid.addRow(2, minPriceInput, maxPriceInput, dropdownFilter, applyFiltersButton);
 
         scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
@@ -120,6 +127,7 @@ public class ProductPage {
       return false;
     }
       }
+
     private void applyFilters(){
         grid.getChildren().clear();
 

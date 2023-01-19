@@ -27,15 +27,10 @@ public class SummaryPage {
         titleGrid.addRow(0, title);
         layout1.getChildren().addAll(titleGrid, grid);
 
-        scrollPane.setContent(layout1);
-
-        
-        
+        scrollPane.setContent(layout1);   
 
     }
     
-
-
     public void addProductsToScreen(ArrayList<Product> products){
         grid.getChildren().clear();
         int row = 0;
@@ -57,30 +52,6 @@ public class SummaryPage {
         } 
 
     }
-
-
-
-
-
-    private int getRowCount(GridPane pane) {
-        int numRows = pane.getRowConstraints().size();
-        for (int i = 0; i < pane.getChildren().size(); i++) {
-            Node child = pane.getChildren().get(i);
-            if (child.isManaged()) {
-                Integer rowIndex = GridPane.getRowIndex(child);
-                if(rowIndex != null){
-                    numRows = Math.max(numRows,rowIndex+1);
-                }
-            }
-        }
-        return numRows;
-    }
-    
-    
-    //add method which sets the delete button on action event
-
-
-
 
     
 }
