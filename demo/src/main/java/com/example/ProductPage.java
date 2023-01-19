@@ -33,7 +33,7 @@ public class ProductPage {
     private Label minPriceLabel = new Label();
     private ComboBox dropdownFilter = new ComboBox();
     private Button applyFiltersButton = new Button("Apply");
-   
+    private CSV csv = new CSV();
 
     private void addProductButtons(){
         for(Product product: products){
@@ -41,6 +41,7 @@ public class ProductPage {
                 //if the product is not already in the array then add it
             if(!selectedProducts.contains(product)){
                 selectedProducts.add(product);
+                csv.exportToCSV(selectedProducts);
             }   
             });
         } 

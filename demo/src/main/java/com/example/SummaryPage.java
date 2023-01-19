@@ -18,6 +18,7 @@ public class SummaryPage {
     public VBox layout1 = new VBox(20);
     public ScrollPane scrollPane = new ScrollPane();
     private TextArea items = new TextArea();
+    private CSV csv = new CSV();
 
     public SummaryPage(){
         Label title = new Label("Summary Dashboard");
@@ -48,6 +49,7 @@ public class SummaryPage {
             product.delButton.setOnAction(e -> {  
                 products.remove(product);
                 addProductsToScreen(products);
+                csv.exportToCSV(products);
             });
         } 
 
