@@ -77,7 +77,6 @@ public class App extends Application {
 
         //Product Screen Buttons
         summaryScreenButton1.setOnAction(e -> {   
-            System.out.println("changed screens");
             summaryScreen.addProductsToScreen(productScreen.getSelectedProducts());
             summaryScreen.addProductButtons(productScreen.getSelectedProducts());
             stage.setScene(summaryScreenScene);

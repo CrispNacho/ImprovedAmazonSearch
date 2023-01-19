@@ -39,9 +39,6 @@ public class ProductPage {
             if(!selectedProducts.contains(product)){
                 selectedProducts.add(product);
             }   
-            
-            System.out.println(selectedProducts);
-
             });
         } 
 
@@ -51,10 +48,7 @@ public class ProductPage {
 
     private void addProductsToScreen(ArrayList<Product> products){
         for(int i = 1; i < products.size(); i+=2){
-            
             grid.addRow(i, products.get(i - 1).text, products.get(i - 1).button, products.get(i).text, products.get(i).button);
-     
-            
         }
     }
 
@@ -76,9 +70,12 @@ public class ProductPage {
 
         maxPriceInput.setMaxWidth(110);
         minPriceInput.setMaxWidth(110);
-        dropdownFilter.getItems().add("Price");
-        dropdownFilter.getItems().add("Rating");
-        dropdownFilter.getItems().add("Discount");
+        dropdownFilter.getItems().add("Price (Asc)");
+        dropdownFilter.getItems().add("Rating (Asc)");
+        dropdownFilter.getItems().add("Discount (Asc)");
+        dropdownFilter.getItems().add("Price (Dsc)");
+        dropdownFilter.getItems().add("Rating (Dsc)");
+        dropdownFilter.getItems().add("Discount (Dsc)");
     
 
         titleGrid.addRow(0, title, textField, searchButton);
@@ -125,50 +122,32 @@ public class ProductPage {
       }
     private void applyFilters(){
         grid.getChildren().clear();
+
+        DataSort sorter = new DataSort();
+
         if(dropdownFilter.getValue() != null){
             String dropdownValue = dropdownFilter.getValue().toString();
             
-            
-            if(dropdownValue == "Price"){
-                Collections.sort(products, new Comparator<Product>() {
-
-                    @Override
-                    public int compare(Product o1, Product o2) {
-                        // TODO Auto-generated method stub
-                        return Double.compare(o1.getCost(), o2.getCost());
-                    }
-                    
-                });
-
+            if(dropdownValue == "Price (Asc)"){
+                sorter.sortByPrice(products);
             }
-            
-            else if(dropdownValue == "Rating"){
-                System.out.println("sorting by rating");
-                Collections.sort(products, new Comparator<Product>() {
-
-                    @Override
-                    public int compare(Product o1, Product o2) {
-                        // TODO Auto-generated method stub
-                        return Double.compare(o2.getRating(), o1.getRating());
-                    }
-                    
-                });
-                //addProductsToScreen(products);
-                
+            else if(dropdownValue == "Rating (Asc)"){
+                sorter.sortByRating(products);
             }
-            else if (dropdownValue == "Discount"){
-                Collections.sort(products, new Comparator<Product>() {
-
-                    @Override
-                    public int compare(Product o1, Product o2) {
-                        // TODO Auto-generated method stub
-                        return Double.compare(o2.getDiscount(), o1.getDiscount());
-                    }
-                    
-                });
-                //addProductsToScreen(products);
-    
-
+            else if (dropdownValue == "Discount (Asc)"){
+                sorter.sortByDiscount(products);
+            }
+            else if(dropdownValue == "Price (Dsc)"){
+                sorter.sortByPrice(products);
+                Collections.reverse(products);
+            }
+            else if(dropdownValue == "Rating (Dsc)"){
+                sorter.sortByRating(products);
+                Collections.reverse(products);
+            }
+            else if (dropdownValue == "Discount (Dsc)"){
+                sorter.sortByDiscount(products);
+                Collections.reverse(products);
             }
         }
         String minstr = minPriceInput.getText().toLowerCase();
@@ -179,14 +158,8 @@ public class ProductPage {
         double maxval = Double.parseDouble(maxstr);
             if(maxval>minval){
                 ArrayList<Product> priceRangedProducts = new ArrayList<Product>();
-                for(int i = 0; i < products.size(); i++){
-                    if(products.get(i).getCost() >= minval && products.get(i).getCost() <= maxval){
-                        System.out.println(products.get(i).getCost());
-                        priceRangedProducts.add(products.get(i));
-                    }
-                }
-                System.out.println("sorting by price");
-                System.out.println("max = " + maxval + " min = " +minval);
+                priceRangedProducts = sorter.filterPrice(products, minval, maxval);
+                
                 addProductsToScreen(priceRangedProducts);
             }
             else{
