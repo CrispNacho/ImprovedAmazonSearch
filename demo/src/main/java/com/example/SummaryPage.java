@@ -29,7 +29,6 @@ public class SummaryPage {
         layout1.getChildren().addAll(titleGrid, grid);
 
         scrollPane.setContent(layout1);   
-
     }
     
     public void addProductsToScreen(ArrayList<Product> products){

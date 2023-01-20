@@ -12,6 +12,7 @@ import java.io.IOException;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import java.util.ArrayList;
 
 /**
  * JavaFX App
@@ -20,6 +21,7 @@ public class App extends Application {
 
     private static Scene scene;
     ScrollPane otherPane = new ScrollPane();
+    private CSV csv = new CSV();
     
     @Override
     public void start(Stage stage) throws IOException {
@@ -67,6 +69,11 @@ public class App extends Application {
 
         //Main Screen buttons
         summaryScreenButton.setOnAction(e -> {   
+            ArrayList<Product> products = new ArrayList<Product>();
+            csv.importFromCSV(products);
+
+            summaryScreen.addProductsToScreen(products);
+            summaryScreen.addProductButtons(products);
             stage.setScene(summaryScreenScene);
         }); 
 
@@ -76,9 +83,12 @@ public class App extends Application {
         }); 
 
         //Product Screen Buttons
-        summaryScreenButton1.setOnAction(e -> {   
-            summaryScreen.addProductsToScreen(productScreen.getSelectedProducts());
-            summaryScreen.addProductButtons(productScreen.getSelectedProducts());
+        summaryScreenButton1.setOnAction(e -> {
+            ArrayList<Product> products = new ArrayList<Product>();
+            csv.importFromCSV(products);
+
+            summaryScreen.addProductsToScreen(products);
+            summaryScreen.addProductButtons(products);
             stage.setScene(summaryScreenScene);
 
         }); 

@@ -45,10 +45,7 @@ public class ProductPage {
             }   
             });
         } 
-
     }
-
-
 
     private void addProductsToScreen(ArrayList<Product> products){
         grid.getChildren().clear();
@@ -69,13 +66,10 @@ public class ProductPage {
 
     public void setSelectedProducts(ArrayList<Product> products){
         this.selectedProducts = products;
-
     }
 
 
     public ProductPage() throws IOException{
-
-
         title.setText("Product Page");
         searchButton.setStyle("-fx-background-color: #9FE2BF ");
         minPriceLabel.setText("Minimum Price");
@@ -90,7 +84,6 @@ public class ProductPage {
         dropdownFilter.getItems().add("Price (Dsc)");
         dropdownFilter.getItems().add("Rating (Dsc)");
         dropdownFilter.getItems().add("Discount (Dsc)");
-    
 
         titleGrid.addRow(0, title, textField, searchButton);
         titleGrid.addRow(1, minPriceLabel, maxPriceLabel);
@@ -100,6 +93,8 @@ public class ProductPage {
         scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
         vbox.getChildren().addAll(titleGrid, grid);
         scrollPane.setContent(vbox);
+
+        csv.importFromCSV(selectedProducts);
 
         searchButton.setOnAction(e -> {
             String text = textField.getText();
@@ -113,16 +108,12 @@ public class ProductPage {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            System.out.println(products);
             addProductButtons();
             addProductsToScreen(products);
-        }); 
-
+            });
         applyFiltersButton.setOnAction(e ->  {
             applyFilters();
-            
         });
-        
     }
 
 

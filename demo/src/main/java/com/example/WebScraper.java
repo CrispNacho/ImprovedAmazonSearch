@@ -35,7 +35,7 @@ public class WebScraper{
                 double price = 0;
                 double rating = 0;
                 for (Element el: product.select(productQuery + nameQuery)) {
-                  name = el.text();
+                  name = el.text().replace(",", ".");
                 }
                 for (Element el: product.select(productQuery + ratingQuery)) {
                   rating = Double.parseDouble(el.text().substring(0, 3));
