@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+
 import com.example.Product;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
@@ -31,6 +32,7 @@ public class ProductPage {
     private TextField maxPriceInput = new TextField();
     private Label maxPriceLabel = new Label();
     private Label minPriceLabel = new Label();
+    private Label enterTextErrorLabel = new Label();
     private ComboBox dropdownFilter = new ComboBox();
     private Button applyFiltersButton = new Button("Apply");
     private CSV csv = new CSV();
@@ -45,6 +47,14 @@ public class ProductPage {
             }   
             });
         } 
+    }
+    public void clearProductScreen(){
+        grid.getChildren().clear();
+        minPriceInput.setText(null);
+        maxPriceInput.setText(null);
+        dropdownFilter.valueProperty().set(null);
+        textField.setText(null);
+
     }
 
     private void addProductsToScreen(ArrayList<Product> products){
@@ -88,6 +98,7 @@ public class ProductPage {
         titleGrid.addRow(0, title, textField, searchButton);
         titleGrid.addRow(1, minPriceLabel, maxPriceLabel);
         titleGrid.addRow(2, minPriceInput, maxPriceInput, dropdownFilter, applyFiltersButton);
+        titleGrid.addRow(3, enterTextErrorLabel);
 
         scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
@@ -100,6 +111,14 @@ public class ProductPage {
             String text = textField.getText();
             grid.getChildren().clear();
             products.clear();
+            text = text.replaceAll("[^a-zA-Z0-9\\s]", "");
+            System.out.println(text);
+            if(text == ""){
+                enterTextErrorLabel.setText("Please enter something to search");
+            } 
+            else {
+                enterTextErrorLabel.setText("");
+            }
 
             WebScraper scraper = new WebScraper();
 

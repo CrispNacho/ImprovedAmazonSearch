@@ -43,7 +43,8 @@ public class App extends Application {
         //Summary Screen Next Buttons
         Button searchScreenButton1= new Button("Search");
         searchScreenButton1.setStyle("-fx-background-color: #9FE2BF ");
-
+        Button exitToMenuButton = new Button("Exit");
+        exitToMenuButton.setStyle("-fx-background-color: #9FE2BF ");
 
         
         //Create screens obects
@@ -55,7 +56,7 @@ public class App extends Application {
 
 
         SummaryPage summaryScreen = new SummaryPage();
-        summaryScreen.titleGrid.addRow(0, searchScreenButton1);
+        summaryScreen.titleGrid.addRow(0, searchScreenButton1, exitToMenuButton);
 
         
 
@@ -95,6 +96,10 @@ public class App extends Application {
         //Summary Screen Buttons
         searchScreenButton1.setOnAction(e -> {   
             stage.setScene(productScreenScene);
+        });
+        exitToMenuButton.setOnAction(e -> { 
+            productScreen.clearProductScreen();
+            stage.setScene(menuScreenScene);
         });
 
         //Sets the default page to be the menu
