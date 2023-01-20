@@ -35,7 +35,10 @@ public class SummaryPage {
         grid.getChildren().clear();
         int row = 0;
         for(int i =0; i < products.size(); i++){
-            grid.addRow(row, products.get(i).summaryText, products.get(i).delButton);
+            TextArea productText = products.get(i).summaryText;
+            String averageText = "\n" + calculateComparisonToAverage(products, products.get(i)) + "of average price!";
+            productText.appendText(averageText);
+            grid.addRow(row, productText, products.get(i).delButton);
             products.get(i).summaryColoumn = i % 2;
             products.get(i).summaryRow = row;
             if(i % 2 == 1){
@@ -54,5 +57,15 @@ public class SummaryPage {
 
     }
 
-    
+    public double calculateComparisonToAverage(ArrayList<Product> productsList, Product product) {
+        double total = 0;
+        
+        for (Product item: productsList) {
+            total += item.getCost();
+        }
+
+        double average = 100 * (Math.abs(product.getCost() - total) / ((product.getCost() + total) / 2) );
+
+        return Math.round(average);
+    }
 }
