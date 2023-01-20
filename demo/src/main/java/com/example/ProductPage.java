@@ -50,10 +50,10 @@ public class ProductPage {
     }
     public void clearProductScreen(){
         grid.getChildren().clear();
-        minPriceInput.setText(null);
-        maxPriceInput.setText(null);
-        dropdownFilter.valueProperty().set(null);
-        textField.setText(null);
+        minPriceInput.setText("");
+        maxPriceInput.setText("");
+        dropdownFilter.valueProperty().set("");
+        textField.setText("");
 
     }
 
@@ -129,7 +129,7 @@ public class ProductPage {
             addProductsToScreen(products);
             });
         applyFiltersButton.setOnAction(e ->  {
-            applyFilters();
+            applyFilters(products);
         });
     }
 
@@ -144,7 +144,7 @@ public class ProductPage {
         }
       }
 
-    private void applyFilters(){
+    private void applyFilters(ArrayList<Product> products){
         grid.getChildren().clear();
 
         DataSort sorter = new DataSort();
