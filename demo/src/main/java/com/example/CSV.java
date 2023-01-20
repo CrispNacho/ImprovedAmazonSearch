@@ -8,8 +8,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 public class CSV {
-    private String fileName = "productData.txt";
-    private String title = "Name,Price,Discount,Rating,Link\n";
+    private String fileName = "productData.csv";
+    private String title = "Name,Price,Discount,Rating,Link";
 
     public void exportToCSV(ArrayList<Product> productsList) {
         try {
@@ -23,6 +23,8 @@ public class CSV {
 
         try {
             FileWriter writer = new FileWriter(fileName);
+
+            writer.write(title + "\n");
 
             for (Product product: productsList) {
                 String text = product.name + "," + product.getCost() + "," + product.getDiscount() + "," + product.getRating() + "," + product.link + "\n";
@@ -41,7 +43,6 @@ public class CSV {
            	br = new BufferedReader(new FileReader(fileName));		
 
            	//One way of reading the file
-			System.out.println("Reading the file using readLine() method:");
 			String contentLine = br.readLine();
 			while (contentLine != null) {
                 parseLine(contentLine, product);

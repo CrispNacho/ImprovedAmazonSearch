@@ -105,8 +105,6 @@ public class ProductPage {
         vbox.getChildren().addAll(titleGrid, grid);
         scrollPane.setContent(vbox);
 
-        csv.importFromCSV(selectedProducts);
-
         searchButton.setOnAction(e -> {
             String text = textField.getText();
             grid.getChildren().clear();
@@ -198,7 +196,9 @@ public class ProductPage {
 
     }
     
-
+    public ArrayList<Product> updateSelectedArray() {
+        return selectedProducts;
+    }
 
     
 }

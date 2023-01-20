@@ -79,6 +79,8 @@ public class App extends Application {
         }); 
 
         searchScreenButton.setOnAction(e -> { 
+            productScreen.getSelectedProducts().clear();
+            csv.importFromCSV(productScreen.getSelectedProducts());
             stage.setScene(productScreenScene);
 
         }); 
@@ -94,7 +96,9 @@ public class App extends Application {
 
         }); 
         //Summary Screen Buttons
-        searchScreenButton1.setOnAction(e -> {   
+        searchScreenButton1.setOnAction(e -> {
+            productScreen.getSelectedProducts().clear();
+            csv.importFromCSV(productScreen.getSelectedProducts());
             stage.setScene(productScreenScene);
         });
         exitToMenuButton.setOnAction(e -> { 
