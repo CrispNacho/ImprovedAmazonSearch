@@ -72,7 +72,7 @@ public class App extends Application {
         summaryScreenButton.setOnAction(e -> {   
             ArrayList<Product> products = new ArrayList<Product>();
             csv.importFromCSV(products);
-
+            summaryScreen.setProducts(products);
             summaryScreen.addProductsToScreen(products);
             summaryScreen.addProductButtons(products);
             stage.setScene(summaryScreenScene);
