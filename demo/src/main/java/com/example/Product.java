@@ -8,8 +8,8 @@ public class Product {
     private double cost;
     private double rating;
     private double discount;
-    private int width = 250;
-    private int height = 100;
+    public int width = 250;
+    public int height = 100;
 
     public String link;
     public TextArea text = new TextArea();

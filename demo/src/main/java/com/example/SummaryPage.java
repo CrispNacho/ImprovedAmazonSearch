@@ -42,6 +42,8 @@ public class SummaryPage {
         dropdownFilter.getItems().add("Rating (Dsc)");
         dropdownFilter.getItems().add("Discount (Dsc)");
 
+        dropdownFilter.getSelectionModel().selectFirst();
+
         scrollPane.setContent(layout1);   
         applyFiltersButton.setOnAction(e ->  {
             applyFilters(products);
@@ -52,9 +54,13 @@ public class SummaryPage {
         grid.getChildren().clear();
         int row = 0;
         for(int i =0; i < products.size(); i++){
-            TextArea productText = products.get(i).summaryText;
-            String averageText = "\n" + calculateComparisonToAverage(products, products.get(i)) + "of average price!";
-            productText.appendText(averageText);
+            String productString = calculateComparisonToAverage(products, products.get(i)) + "% of average price!\n" + products.get(i).summaryText.getText();
+            TextArea productText = new TextArea();
+            productText.setPrefHeight(products.get(i).height);
+            productText.setPrefWidth(products.get(i).width);
+            productText.setEditable(false);
+            productText.setWrapText(true);
+            productText.setText(productString);
             grid.addRow(row, productText, products.get(i).delButton);
             products.get(i).summaryColoumn = i % 2;
             products.get(i).summaryRow = row;
@@ -119,8 +125,12 @@ public class SummaryPage {
             total += item.getCost();
         }
 
-        double average = 100 * (Math.abs(product.getCost() - total) / ((product.getCost() + total) / 2) );
+        double average = total / productsList.size();
 
-        return Math.round(average);
+        System.out.println(average);
+
+        double percent = product.getCost() / average * 100; 
+
+        return Math.round(percent);
     }
 }
