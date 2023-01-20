@@ -10,7 +10,10 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
 import javafx.scene.Node;
-
+import java.util.Collections;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Button;
 
 public class SummaryPage {
     public GridPane titleGrid = new GridPane();
@@ -19,6 +22,9 @@ public class SummaryPage {
     public ScrollPane scrollPane = new ScrollPane();
     private TextArea items = new TextArea();
     private CSV csv = new CSV();
+    private ComboBox dropdownFilter = new ComboBox();
+    private Button applyFiltersButton = new Button("Apply");
+    private ArrayList<Product> products = new ArrayList<Product>();
 
     public SummaryPage(){
         Label title = new Label("Summary Dashboard");
@@ -26,9 +32,20 @@ public class SummaryPage {
         scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
         titleGrid.addRow(0, title);
+        titleGrid.addRow(1, dropdownFilter, applyFiltersButton);
         layout1.getChildren().addAll(titleGrid, grid);
 
+        dropdownFilter.getItems().add("Price (Asc)");
+        dropdownFilter.getItems().add("Rating (Asc)");
+        dropdownFilter.getItems().add("Discount (Asc)");
+        dropdownFilter.getItems().add("Price (Dsc)");
+        dropdownFilter.getItems().add("Rating (Dsc)");
+        dropdownFilter.getItems().add("Discount (Dsc)");
+
         scrollPane.setContent(layout1);   
+        applyFiltersButton.setOnAction(e ->  {
+            applyFilters(products);
+        });
     }
     
     public void addProductsToScreen(ArrayList<Product> products){
@@ -53,6 +70,53 @@ public class SummaryPage {
         } 
 
     }
+    public void setProducts(ArrayList<Product> products){
+        this.products = products;
+    }
+
+    private void applyFilters(ArrayList<Product> products){
+        grid.getChildren().clear();
+
+        DataSort sorter = new DataSort();
+
+        if(dropdownFilter.getValue() != null){
+            String dropdownValue = dropdownFilter.getValue().toString();
+            
+            if(dropdownValue == "Price (Asc)"){
+                sorter.sortByPrice(products);
+            }
+            else if(dropdownValue == "Rating (Asc)"){
+                sorter.sortByRating(products);
+            }
+            else if (dropdownValue == "Discount (Asc)"){
+                sorter.sortByDiscount(products);
+            }
+            else if(dropdownValue == "Price (Dsc)"){
+                sorter.sortByPrice(products);
+                Collections.reverse(products);
+            }
+            else if(dropdownValue == "Rating (Dsc)"){
+                sorter.sortByRating(products);
+                Collections.reverse(products);
+            }
+            else if (dropdownValue == "Discount (Dsc)"){
+                sorter.sortByDiscount(products);
+                Collections.reverse(products);
+            }
+        }
+        addProductsToScreen(products);
+       
+
+    }
+    private Boolean isDouble(String text) {
+        try {
+            Double.parseDouble(text);
+            return true;
+        }
+        catch (NumberFormatException er){
+            return false;
+        }
+      }
 
     
 }
