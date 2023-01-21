@@ -37,7 +37,12 @@ public class ProductPage {
     private Button applyFiltersButton = new Button("Apply");
     private CSV csv = new CSV();
 
-    private void addProductButtons(){
+    /**
+     * Sets the actions of all the product buttons to add themselves to the selected products
+     * @param products the array list of products
+     * @param selectedProducts the array list of the selected products
+     */
+    private void addProductButtons(ArrayList<Product> products, ArrayList<Product> selectedProducts){
         for(Product product: products){
             product.button.setOnAction(e -> {  
                 //if the product is not already in the array then add it
@@ -48,6 +53,7 @@ public class ProductPage {
             });
         } 
     }
+    //Clears the screen of all user inputs
     public void clearProductScreen(){
         grid.getChildren().clear();
         minPriceInput.setText("");
@@ -56,7 +62,10 @@ public class ProductPage {
         textField.setText("");
 
     }
-
+    /**
+     * Displays the products on the actual screen in two rows
+     * @param products array list of products
+     */
     private void addProductsToScreen(ArrayList<Product> products){
         grid.getChildren().clear();
         int row = 0;
@@ -64,6 +73,7 @@ public class ProductPage {
             grid.addRow(row, products.get(i).text, products.get(i).button);
             products.get(i).coloumn = i % 2;
             products.get(i).row = row;
+            //Only increments the row every two products
             if(i % 2 == 1){
                 row+=1;
             }
@@ -88,6 +98,7 @@ public class ProductPage {
         maxPriceInput.setMaxWidth(110);
         minPriceInput.setMaxWidth(110);
 
+        //Adding the options to the dropdown
         dropdownFilter.getItems().add("Price (Asc)");
         dropdownFilter.getItems().add("Rating (Asc)");
         dropdownFilter.getItems().add("Discount (Asc)");
@@ -95,6 +106,7 @@ public class ProductPage {
         dropdownFilter.getItems().add("Rating (Dsc)");
         dropdownFilter.getItems().add("Discount (Dsc)");
 
+        //Setting up the grid for the user inputs
         titleGrid.addRow(0, title, textField, searchButton);
         titleGrid.addRow(1, minPriceLabel, maxPriceLabel);
         titleGrid.addRow(2, minPriceInput, maxPriceInput, dropdownFilter, applyFiltersButton);
@@ -102,16 +114,18 @@ public class ProductPage {
 
         scrollPane.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+
         vbox.getChildren().addAll(titleGrid, grid);
         scrollPane.setContent(vbox);
 
         searchButton.setOnAction(e -> {
-            String text = textField.getText();
+            String searchText = textField.getText();
             grid.getChildren().clear();
             products.clear();
-            text = text.replaceAll("[^a-zA-Z0-9\\s]", "");
-            System.out.println(text);
-            if(text == ""){
+            searchText = searchText.replaceAll("[^a-zA-Z0-9\\s]", "");
+            System.out.println(searchText);
+            //Tests if the user didnt enter anything
+            if(searchText == ""){
                 enterTextErrorLabel.setText("Please enter something to search");
             } 
             else {
@@ -121,11 +135,11 @@ public class ProductPage {
             WebScraper scraper = new WebScraper();
 
             try {
-                scraper.scrape(text, products);
+                scraper.scrape(searchText, products);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            addProductButtons();
+            addProductButtons(products, selectedProducts);
             addProductsToScreen(products);
             });
         applyFiltersButton.setOnAction(e ->  {
@@ -144,6 +158,10 @@ public class ProductPage {
         }
       }
 
+    /**
+     * Applies the filters to the arraylist
+     * @param products arraylist of products
+     */
     private void applyFilters(ArrayList<Product> products){
         grid.getChildren().clear();
 
@@ -176,7 +194,7 @@ public class ProductPage {
         }
         String minstr = minPriceInput.getText().toLowerCase();
         String maxstr = maxPriceInput.getText().toLowerCase();
-  
+        
         if(isDouble(maxstr) && isDouble(minstr)){
         double minval = Double.parseDouble(minstr); 
         double maxval = Double.parseDouble(maxstr);
@@ -187,10 +205,12 @@ public class ProductPage {
                 addProductsToScreen(priceRangedProducts);
             }
             else{
+                //if max is not greater than min then ignore inputs
                 addProductsToScreen(products);
             }
         }
         else{
+            //if the values are not doubles then ignore inputs
             addProductsToScreen(products);
         }
 

@@ -35,6 +35,7 @@ public class SummaryPage {
         titleGrid.addRow(1, dropdownFilter, applyFiltersButton);
         layout1.getChildren().addAll(titleGrid, grid);
 
+        //Adding the options to the dropdown
         dropdownFilter.getItems().add("Price (Asc)");
         dropdownFilter.getItems().add("Rating (Asc)");
         dropdownFilter.getItems().add("Discount (Asc)");
@@ -42,6 +43,7 @@ public class SummaryPage {
         dropdownFilter.getItems().add("Rating (Dsc)");
         dropdownFilter.getItems().add("Discount (Dsc)");
 
+        //Default to the first value 
         dropdownFilter.getSelectionModel().selectFirst();
 
         scrollPane.setContent(layout1);   
@@ -49,7 +51,11 @@ public class SummaryPage {
             applyFilters(products);
         });
     }
-    
+    /**
+     * Displays the products on the actual screen in two rows
+     * Also adds the comparison to the average price as well
+     * @param products array list of products
+     */
     public void addProductsToScreen(ArrayList<Product> products){
         grid.getChildren().clear();
         int row = 0;
@@ -69,6 +75,10 @@ public class SummaryPage {
             }
         }
     }
+    /**
+     * Adds the delete button actions
+     * @param products 
+     */
     public void addProductButtons(ArrayList<Product> products){
         for(Product product: products){
             product.delButton.setOnAction(e -> {  
@@ -83,6 +93,10 @@ public class SummaryPage {
         this.products = products;
     }
 
+    /**
+     * Sorts the products by the filter values
+     * @param products
+     */
     private void applyFilters(ArrayList<Product> products){
         grid.getChildren().clear();
 
@@ -118,6 +132,12 @@ public class SummaryPage {
 
     }
 
+    /**
+     * Calculates the products price in comparison to the avergae price
+     * @param productsList ArrayList of products
+     * @param product product to be compared
+     * @return
+     */
     public double calculateComparisonToAverage(ArrayList<Product> productsList, Product product) {
         double total = 0;
         
