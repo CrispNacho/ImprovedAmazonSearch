@@ -11,6 +11,11 @@ public class CSV {
     private String fileName = "productData.csv";
     private String title = "Name,Price,Discount,Rating,Link";
 
+    /**
+     * Exports all products and their properties from an arraylist.
+     * Data is imported into a CSV file with headings. 
+     * @param productsList the arraylist with all the product objects to be exported
+     */
     public void exportToCSV(ArrayList<Product> productsList) {
         try {
             File file = new File(fileName);
@@ -37,6 +42,11 @@ public class CSV {
         }
     }
 
+    /**
+     * Reads the saved product CSV and import all the data into
+     * product objects and saved into a list.
+     * @param product the arraylist where the product should be imported into.
+     */
     public void importFromCSV(ArrayList<Product> product) {
         BufferedReader br = null;
        	try{		
@@ -64,6 +74,12 @@ public class CSV {
 		}
   	}
     
+    /**
+     * Read and parse through a line of CSV and convert it into a product object.
+     * Returns if the line is the heading.
+     * @param line the string of the certain line of CSV you are reading
+     * @param products the arraylist that will be populated with product objects.
+     */
     public void parseLine(String line, ArrayList<Product> products) {
         if (line.equals(title)) {
             return;

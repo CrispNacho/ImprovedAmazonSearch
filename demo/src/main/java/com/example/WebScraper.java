@@ -18,12 +18,18 @@ public class WebScraper{
     private String discountQuery = "div.a-section.a-spacing-none.a-spacing-top-small.s-price-instructions-style > div > a > span.a-price.a-text-price > span.a-offscreen";
     private String linkQuery = "div > div > div > div > div.s-product-image-container.aok-relative.s-image-overlay-grey.s-text-center.s-padding-left-small.s-padding-right-small.puis-spacing-small.s-height-equalized > span > a";
 
-    public void scrape(String keyword, ArrayList<Product> productList) throws IOException {
+    /**
+     * Scrapes a specified Amazon page based on a keyword and fills a list with all the products
+     * on the amazon page with their properties
+     * @param keyword the keyword used to search products in Amazon.
+     * @param productList the list that is to be filled with all product objects.
+     * @throws IOException
+     */
+    public void scrapeAmazon(String keyword, ArrayList<Product> productList) throws IOException {
         String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:53.0) Gecko/20100101 Firefox/53.0";
         String url = "https://www.amazon.ca/s?k=" + keyword;
 
         Document document = Jsoup.connect(url).userAgent(userAgent).timeout(5000).get();    
-    
         
         Elements body = document.select(query);
 

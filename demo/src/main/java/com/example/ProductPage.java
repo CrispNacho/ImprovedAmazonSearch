@@ -135,7 +135,7 @@ public class ProductPage {
             WebScraper scraper = new WebScraper();
 
             try {
-                scraper.scrape(searchText, products);
+                scraper.scrapeAmazon(searchText, products);
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
