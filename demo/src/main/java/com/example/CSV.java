@@ -52,7 +52,7 @@ public class CSV {
        	try{		
            	br = new BufferedReader(new FileReader(fileName));		
 
-           	//One way of reading the file
+           	// Reading through entire file line by line
 			String contentLine = br.readLine();
 			while (contentLine != null) {
                 parseLine(contentLine, product);
@@ -93,6 +93,7 @@ public class CSV {
 
         Product product = new Product(name, price, rating, discount, link);
 
+        // Return if the item is already in the product list.
         for (Product item: products) {
             if (item.name.equals(product.name) && item.getCost() == product.getCost()) {
                 return;

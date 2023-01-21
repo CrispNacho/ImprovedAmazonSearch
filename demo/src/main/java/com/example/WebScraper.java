@@ -31,33 +31,44 @@ public class WebScraper{
 
         Document document = Jsoup.connect(url).userAgent(userAgent).timeout(5000).get();    
         
+        // Select the body of the amazon page containing all the products.
         Elements body = document.select(query);
 
+        // Get the body element
         for (Element sections: body) {
+            // Loop through all the products (children) of the body element
             for (Element product : sections.children()) {
                 String name = "";
                 String link = "";
                 double discount = 0;
                 double price = 0;
                 double rating = 0;
+
+                // Find the name of the product
                 for (Element el: product.select(productQuery + nameQuery)) {
                   name = el.text().replace(",", ".");
                 }
+                // Find the rating of the product
                 for (Element el: product.select(productQuery + ratingQuery)) {
                   rating = Double.parseDouble(el.text().substring(0, 3));
                 }
+                // Find the price of the product
                 for (Element el: product.select(productQuery + priceQuery)) {
                   price = Double.parseDouble(el.text().substring(1).replaceAll(",",""));
                 }
+                // Find and calculate the discount percentage of a product
                 for (Element el: product.select(productQuery + discountQuery)) {
                   double originalPrice = Double.parseDouble(el.text().substring(1).replaceAll(",",""));
                   discount = (originalPrice - price) / originalPrice * 100;
                   discount = Math.round(discount);
                 }
+
+                // Find the redirect link of the product
                 for (Element el: product.select(linkQuery)) {
                   link = el.attr("href");
                 }
 
+                // Create a new product entry and input in arraylist if it isn't an empty element
                 Product productEntry = new Product(name, price, rating, discount, link);
                 if (price != 0) {
                     productList.add(productEntry);
