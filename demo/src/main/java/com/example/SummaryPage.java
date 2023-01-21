@@ -147,8 +147,7 @@ public class SummaryPage {
 
         double average = total / productsList.size();
 
-        System.out.println(average);
-
+        // Find relation between product cost vs the total average cost
         double percent = product.getCost() / average * 100; 
 
         return Math.round(percent);

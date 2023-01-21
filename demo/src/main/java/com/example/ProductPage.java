@@ -123,7 +123,6 @@ public class ProductPage {
             grid.getChildren().clear();
             products.clear();
             searchText = searchText.replaceAll("[^a-zA-Z0-9\\s]", "");
-            System.out.println(searchText);
             //Tests if the user didnt enter anything
             if(searchText == ""){
                 enterTextErrorLabel.setText("Please enter something to search");
