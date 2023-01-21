@@ -209,6 +209,18 @@ public class ProductPage {
                 addProductsToScreen(products);
             }
         }
+        else if (isDouble(maxstr)){
+            double maxval = Double.parseDouble(maxstr);
+            ArrayList<Product> priceRangedProducts = new ArrayList<Product>();
+            priceRangedProducts = sorter.filterPrice(products, 0, maxval);           
+            addProductsToScreen(priceRangedProducts);
+        }
+        else if (isDouble(minstr)){
+            double minval = Double.parseDouble(minstr); 
+            ArrayList<Product> priceRangedProducts = new ArrayList<Product>();
+            priceRangedProducts = sorter.filterPrice(products, minval);           
+            addProductsToScreen(priceRangedProducts);
+        }
         else{
             //if the values are not doubles then ignore inputs
             addProductsToScreen(products);

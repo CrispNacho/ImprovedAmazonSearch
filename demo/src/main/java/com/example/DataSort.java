@@ -48,4 +48,15 @@ public class DataSort {
 
         return priceRangedProducts;
     }
+    public ArrayList<Product> filterPrice(ArrayList<Product> products, double minval) {
+        ArrayList<Product> priceRangedProducts = new ArrayList<Product>();
+        
+        for(int i = 0; i < products.size(); i++){
+            if(products.get(i).getCost() >= minval){
+                priceRangedProducts.add(products.get(i));
+            }
+        }
+
+        return priceRangedProducts;
+    }
 }
